@@ -1,0 +1,99 @@
+{
+  "project_name": "Multimodal_Zone_Load_Forecasting",
+  "dataset_name": "ISO-NE-Zone",
+  "env_settings": {
+    "save_dir": "./checkpoints/zone_NEMASSBO_run",
+    "data_paths": {
+      "load": "../../../dataset/iso_ne_8zones_aligned.csv",
+      "era5": "../../../dataset/era5_2019_2021.nc",
+      "goes": "../../../dataset/goes16_2019_2021_images.npy"
+    }
+  },
+  "data_settings": {
+    "seq_len": 96,
+    "label_len": 48,
+    "pred_len": 96,
+    "scale": true,
+    "timeenc": 1,
+    "freq": "h",
+    "goes_time_ratio": 4,
+    "dataset_mode": "regional",
+    "zone_name": "NEMASSBO",
+    "zone_weather_crop_size": 8,
+    "zone_goes_deg_span": 2.0,
+    "regional_img_size": [
+      64,
+      64
+    ]
+  },
+  "model_settings": {
+    "d_model": 32,
+    "enc_in": 1,
+    "dec_in": 1,
+    "c_out": 1,
+    "top_k": 5,
+    "d_ff": 32,
+    "e_layers": 1,
+    "embed": "timeF",
+    "freq": "h",
+    "dropout": 0.5,
+    "num_kernels": 6,
+    "weather_in_channels": 6,
+    "weather_spatial_size": 8,
+    "weather_nhead": 4,
+    "weather_num_layers": 1,
+    "img_in_channels": 1,
+    "img_seq_len": 24,
+    "img_height": 64,
+    "img_width": 64,
+    "patch_size": 16,
+    "img_num_layers": 2,
+    "lambda_sparse": 0.0,
+    "lambda_delta": 0.01,
+    "router_init_bias": -3,
+    "router_max_weight": 1,
+    "fusion_mode": "residual_expert",
+    "augment_noise_std": 0.0,
+    "augment_jitter_max": 0,
+    "drop_stage1_projectors": false,
+    "stage2_train_projectors": false,
+    "fallback_to_base_if_worse": true,
+    "fusion_min_gain": 0.0,
+    "router_nhead": 4,
+    "router_dropout": 0.1,
+    "router_weather_max_weight": 1,
+    "router_image_max_weight": 1,
+    "branch_dropout": 0.2,
+    "stage3_train_alignment": false,
+    "aux_delta_scale": 0.1,
+    "residual_target_clip": true
+  },
+  "training_settings": {
+    "batch_size": 32,
+    "num_workers": 4,
+    "clip": 0.5,
+    "when": 20,
+    "stage1": {
+      "pretrain_epochs": 40,
+      "pretrain_lr": 0.0001,
+      "early_stop_patience": 5,
+      "weather_pretrain_lr": 5e-05,
+      "image_pretrain_lr": 5e-05,
+      "modal_pretrain_weight_decay": 0.01,
+      "backbone_pretrain_weight_decay": 0.01
+    },
+    "stage2": {
+      "router_epochs": 20,
+      "router_lr": 0.0001,
+      "early_stop_patience": 5,
+      "router_weight_decay": 0.001
+    },
+    "stage3": {
+      "finetune_epochs": 10,
+      "finetune_lr": 0.0001,
+      "early_stop_patience": 3,
+      "head_finetune_lr": 2e-06,
+      "router_finetune_lr": 1e-05
+    }
+  }
+}

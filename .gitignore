@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments and editors
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+
+# Data and generated artifacts
+dataset/
+data/
+checkpoints/
+outputs/
+results/
+logs/
+runs/
+*.pth
+*.pt
+*.ckpt
+*.npy
+*.npz
+*.nc
+*.h5
+*.hdf5
+*.csv
+
+# Training caches
+wandb/
+lightning_logs/
+**/checkpoint-*/
+
+# OS files
+.DS_Store
+Thumbs.db
+
