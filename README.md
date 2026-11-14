@@ -28,5 +28,5 @@ The scripts expose their experiment-specific options through `--help`. Outputs, 
 
 ## Availability
 
-This is the review-oriented release of the implementation and principal experiment scripts. The complete project codebase and data are subject to the ongoing project's management requirements.
+This is the release of the implementation and principal experiment scripts. The complete project codebase are subject to the ongoing project's management requirements.
 
